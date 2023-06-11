@@ -75,7 +75,36 @@ RSpec.describe Moto do
         expect(@moto.to_s).to eq("Matricula: 1234KNG, combustible: gasolina, propietarios: {\"persona1\"=>\"654321\"}, precio: 3000, year_fabricacion: 2005, itv: false")
       end
 
-    end 
+    end
+
+    context "Herencia" do
+      # creamos los objetos
+      before :all do
+        @moto = Moto.new("1234KNG", "gasolina", {"persona1" => "654321"}, 3000, 2005, false)
+      end
+
+      it "Se espera que una instancia de la clase Moto sea de Moto" do
+        expect(@moto).to be_an_instance_of(Moto)
+      end
+
+      it "Se espera que una instancia de la clase Moto sea de Object" do
+        expect(@moto).to be_kind_of(Object)
+      end
+
+      it "Se espera que una instancia de la clase Moto sea de BasicObject" do
+        expect(@moto).to be_kind_of(BasicObject)
+      end
+
+      it "No se espera que una instancia de la clase Motor sea un String" do
+        expect(@moto).not_to be_a(String)
+      end
+    
+      it "No se espera que una instancia de la clase Motor sea un Numeric" do
+        expect(@moto).not_to be_a(Numeric)
+      end
+
+    end
+
   end
 end
 
