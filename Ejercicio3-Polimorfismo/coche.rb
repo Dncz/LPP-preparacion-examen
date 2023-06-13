@@ -38,42 +38,30 @@ class Coche
   # y funcionará de los tipos de datos que se pasen
   # Hay que hacer que las funciones polimorficas no usen los datos de la propia clase
   # a la funcion le paso el vector de coches
-  # en la clase coche hay que hace una sobrecarga del operador +
-
-  # ToDo: REHACER DE NUEVO LAS FUNCIONES PARA QUE SEAN POLIMORFICAS...
-
-  # función de segundo orden para calcular el coche con mayor precio
   
   # sobrecarga del operador +
   def +(other)
-    Coche.new(@id, @fabricante, @year_fabricacion, @modelo, @millas_galon, @precio + other.precio, @propietarios, @ventas)
+    # esto es para devolver un objeto con el precio incrementado
+    # Coche.new(@id, @fabricante, @year_fabricacion, @modelo, @millas_galon, @precio + other, @propietarios, @ventas)
+    @precio + other
   end
 
   def -(other)
-    Coche.new(@id, @fabricante, @year_fabricacion, @modelo, @millas_galon, @precio - other.precio, @propietarios, @ventas)
+    @precio - other
   end
 
-  # def <=>(other)
-  #   @precio <=> other.precio
-  # end
-  # def max_value
-  #   @precio
-  # end
-  # def incrementar_precio(arrayCoches)
-  #   arrayCoches.collect { |coche| coche.precio + (Time.now.year - coche.year_fabricacion) }
-  # end
+  def max(other)
+    
+  end
 
-  # def descrementar_precio(arrayCoches)
-  #   arrayCoches.collect { |coche| coche.propietarios.length >= 3 ? coche.precio - (0.5 * coche.precio) : coche.precio }
-  # end
 end
 
-# def incrementar_precio(conjuntoObj)
-#   conjuntoObj.collect { |obj| obj.precio + (Time.now.year - obj.year_fabricacion) }
-# end
+# incremento del precio dado un factor
+def incrementar_precio(conjuntoObj, factor)
+  conjuntoObj.collect { |objeto| objeto + factor }
+end
 
-# # calcular el máximo valor de un array
-# def max_precio(array)
-#   # array.max_by { |objeto| objeto.max_value }
-#   array.max { |a, b| yield(a) <=> yield(b) }
-# end
+# descrementar el precio dado un factor
+def descrementar_precio(conjuntoObj, factor)
+  conjuntoObj.collect { |objeto| objeto - factor }
+end

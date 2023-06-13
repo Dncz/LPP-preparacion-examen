@@ -38,14 +38,17 @@ RSpec.describe Coche do
       #   expect(@coches.min_by {|coches| coches.volumenVentas }.volumenVentas).to eq(2)
       # end
 
-      # it "Se incrementa el precio de los coches" do
-      #   # expect(@coche1.incrementar_precio(@coches)).to eq([52640, 100002, 989])
-      #   expect()
-      # end
+      it "Se incrementa el precio de los coches" do
+        @array = [1,2,3]
+        expect(incrementar_precio(@coches, 0.5)).to eq([52638.5, 100000.5, 987.5])
+        expect(incrementar_precio(@array, 1)).to eq([2, 3, 4])
+      end
 
-      # it "Se descrementa el precio de los coches" do
-      #   # expect(@coche1.descrementar_precio(@coches)).to eq([26319, 100000, 987])
-      # end
+      it "Se descrementa el precio de los coches" do
+        @array = [1,2,3]
+        expect(descrementar_precio(@coches, 0.5)).to eq([52637.5, 99999.5, 986.5])
+        expect(descrementar_precio(@array, 1)).to eq([0, 1, 2])
+      end
     end
 
   end
