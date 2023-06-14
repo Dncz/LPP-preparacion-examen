@@ -121,3 +121,54 @@ class DSLVehiculo
   end
 
 end
+
+# expectativa de herencia
+RSpec.describe DSLVehiculo do
+  describe "DLS atributos" do
+
+    it "Se espera que se pueda registrar un propietario" do
+      propietario1 = {"persona1" => "654321"}
+      propietario2 = {"persona2" => "611111"}
+      @vehiculo = DSLVehiculo.new("1234KNG", 2018) do
+        registrar_propietarios propietario1
+        registrar_propietarios propietario2
+      end
+      expect(@vehiculo.propietarios).to eq([{"persona1" => "654321"}, {"persona2" => "611111"}])
+    end
+
+    it "Se espera cambiar el valor de la itv" do
+      itv_pass = "itv- pass"
+      @vehiculo = DSLVehiculo.new("1234KNG", 2018) do
+        cambiar_itv itv_pass
+      end
+    end
+
+  end
+
+  describe "Herencia" do
+    before :all do
+      @vehiculo = DSLVehiculo.new("1234KNG", 2018)
+    end
+
+    it "Se espera que una instancia de la clase DSLVehiculo sea de DSLVehiculo" do
+      expect(@vehiculo).to be_an_instance_of DSLVehiculo
+    end
+
+    it "Se espera que una instancia de la clase DSLVehiculo sea de BasicObject" do
+      expect(@vehiculo).to be_kind_of BasicObject
+    end
+
+    it "Se espera que una instancia de la clase DSLVehiculo sea de Object" do
+      expect(@vehiculo).to be_kind_of Object
+    end
+
+    it "No se espera que una instancia de la clase DSLVehiculo sea de String" do
+      expect(@vehiculo).not_to be_a String
+    end
+
+    it "No se espera que una isntancias de las clase DSLVehiculo sea de Numeric" do
+      expect(@vehiculo).not_to be_a Numeric
+    end
+
+  end
+end
