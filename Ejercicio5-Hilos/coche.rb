@@ -27,7 +27,7 @@ class Coche
   end
 
   def to_s 
-    "Coche #{@id} #{@fabricante} #{@year_fabricacion} #{@modelo} #{@precio} #{@propietarios} #{@indicadores}"
+    "Coche #{@id}"
   end
   
   def volumenVentas
