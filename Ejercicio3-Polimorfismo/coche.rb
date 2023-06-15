@@ -50,8 +50,8 @@ class Coche
     @precio - other
   end
 
-  def max(other)
-    
+  def <=>(other)
+    @year_fabricacion <=> other
   end
 
 end
@@ -64,4 +64,31 @@ end
 # descrementar el precio dado un factor
 def descrementar_precio(conjuntoObj, factor)
   conjuntoObj.collect { |objeto| objeto - factor }
+end
+
+def promedio_precio(conjuntoObj, limit)
+  @promedio_filtrado = conjuntoObj.select { |obj| obj <= limit } 
+  # puts @promedio_filtrado.inspect
+end
+
+
+RSpec.describe Coche do
+  describe "coche" do
+    context "testing functions" do
+      before :all do
+        @coche1 = Coche.new(1111, "Toyota", 2018, "Clase G", 10, 52638, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
+        @coche2 = Coche.new(2222, "Honda", 2009, "Lamda", 10, 100000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
+        @coche3 = Coche.new(3333, "Toyota", 2021, "Clase 0", 10, 987, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
+        @coche4 = Coche.new(4444, "Ford", 2022, "Clase G", 10, 52638, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
+        @coche5 = Coche.new(5555, "Honda", 2010, "Lamda", 10, 100000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
+        @coche6 = Coche.new(6666, "Toyota", 2009, "Clase 0", 10, 987, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
+        @parking = [@coche1, @coche2, @coche3, @coche4, @coche5, @coche6]
+      end
+
+      it "Se espera el promedio de los precios dado un limite" do
+        expect(promedio_precio(@parking, 2010)).to eq([@coche2, @coche5, @coche6])
+        expect(promedio_precio([4, 3, 2, 1], 3)).to eq([3, 2, 1])
+      end
+    end
+  end
 end
