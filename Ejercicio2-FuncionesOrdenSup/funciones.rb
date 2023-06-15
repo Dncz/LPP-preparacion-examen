@@ -1,5 +1,5 @@
 require './coche.rb'
-# require './vehiculo.rb'
+require './vehiculo.rb'
 
 # EJERCICIO 1
 # Se requiere desarrollar una función de segundo orden en Ruby que, dado un conjunto de objetos Coche,
@@ -148,23 +148,83 @@ def encontrar_min_max_precio(conjuntoCoche)
   conjuntoCoche.minmax_by { |coche| coche.precio }.collect(&:precio)
 end
 
-RSpec.describe Coche do
-  describe "TestCoche" do
-    context "Testing de promedio de precios" do
+# RSpec.describe Coche do
+#   describe "TestCoche" do
+#     context "Testing de promedio de precios" do
+#       before :all do
+#         @coche1 = Coche.new(1111, "Toyota", 2018, "Clase G", 10, 52638, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
+#         @coche2 = Coche.new(2222, "Honda", 2009, "Lamda", 10, 10000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
+#         @coche3 = Coche.new(3333, "Toyota", 2021, "Clase 0", 10, 987, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
+#         @coche4 = Coche.new(4444, "Ford", 2022, "Clase G", 10, 12000, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
+#         @coche5 = Coche.new(5555, "Honda", 2010, "Lamda", 10, 8000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
+#         @coche6 = Coche.new(6666, "Toyota", 2009, "Clase 0", 10, 15000, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
+#         @parking = [@coche1, @coche2, @coche3, @coche4, @coche5, @coche6]
+#       end
+
+#       it "Se espera el mínimo y máximo de los precios del conjunto de coches" do
+#         expect(encontrar_min_max_precio(@parking)).to eq([987, 52638])
+#       end
+
+#     end
+#   end
+# end
+
+# EJERCICIO 5
+# hacer lo mismo que el ejercicio 4, pero usando objetos Vehiculos
+
+def encontrar_min_max_indicadore(conjCoches)
+  @min_max_array_indicadores = conjCoches.flat_map{ |coche| coche.indicadores }
+  @min_max_array_indicadores.minmax
+
+end
+
+# RSpec.describe Vehiculo do
+#   describe "Test Vehiculo" do
+#     context "Testing de Vehiculo" do
+#       before :all do
+#         @vehiculo1 = Vehiculo.new("1234KNG", 52638, [4, 3, 2, 1], "gasolina")
+#         @vehiculo2 = Vehiculo.new("ABC123", 2000, [12, 7, 9, 2], "gasolina")
+#         @vehiculo3 = Vehiculo.new("DEF456", 987, [10, 3, 88, 11], "gasolina")
+#         @vehiculo4 = Vehiculo.new("GHI789", 15000, [5, 9, 6, 4], "gasolina")
+#         @vehiculo5 = Vehiculo.new("JKL012", 10000, [4, 12, 10, 5], "gasolina")
+#         @vehiculo6 = Vehiculo.new("1253LBW", 8000, [10, 3, 8, 11], "gasolina")
+#         @parking = [@vehiculo1, @vehiculo2, @vehiculo3, @vehiculo4, @vehiculo5, @vehiculo6]
+#       end
+
+#       it "Se espera encontrar el mínimo y máximo de los indicadores de un coche del parking" do
+#         expect(encontrar_min_max_indicadore(@parking)).to eq([1, 88])
+#       end
+#     end
+#   end
+# end
+
+
+# EJERCICIO 6
+# Obtener una lista de las matrículas de los vehículos
+# cuyos indicadores de emisiones son todos mayores o iguales a 5
+
+def obtener_mat(conjuntoVehiculo)
+  @var = conjuntoVehiculo.select { |vehiculo| vehiculo.indicadores.any? { |i| i >= 5 } }.collect(&:mat)
+  # print "#{@var.inspect}"
+end
+
+RSpec.describe Vehiculo do
+  describe "Test Vehiculo" do
+    context "Testing de Vehiculo" do
       before :all do
-        @coche1 = Coche.new(1111, "Toyota", 2018, "Clase G", 10, 52638, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
-        @coche2 = Coche.new(2222, "Honda", 2009, "Lamda", 10, 10000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
-        @coche3 = Coche.new(3333, "Toyota", 2021, "Clase 0", 10, 987, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
-        @coche4 = Coche.new(4444, "Ford", 2022, "Clase G", 10, 12000, {"pepe" => "611123345", "lola" => "611123345"}, [1, 2])
-        @coche5 = Coche.new(5555, "Honda", 2010, "Lamda", 10, 8000, {"pepe" => "611123345", "lola" => "611123345"}, [5, 1])
-        @coche6 = Coche.new(6666, "Toyota", 2009, "Clase 0", 10, 15000, {"pepe" => "611123345", "lola" => "611123345"}, [3, 3])
-        @parking = [@coche1, @coche2, @coche3, @coche4, @coche5, @coche6]
+        @vehiculo1 = Vehiculo.new("1234KNG", 52638, [4, 3, 2, 1], "gasolina")
+        @vehiculo2 = Vehiculo.new("ABC123", 2000, [12, 7, 9, 2], "gasolina")
+        @vehiculo3 = Vehiculo.new("DEF456", 987, [10, 3, 88, 11], "gasolina")
+        @vehiculo4 = Vehiculo.new("GHI789", 15000, [5, 9, 6, 4], "gasolina")
+        @vehiculo5 = Vehiculo.new("JKL012", 10000, [4, 12, 10, 5], "gasolina")
+        @vehiculo6 = Vehiculo.new("1253LBW", 8000, [10, 3, 8, 11], "gasolina")
+        @parking = [@vehiculo1, @vehiculo2, @vehiculo3, @vehiculo4, @vehiculo5, @vehiculo6]
       end
 
-      it "Se espera el mínimo y máximo de los precios del conjunto de coches" do
-        expect(encontrar_min_max_precio(@parking)).to eq([987, 52638])
+      it "Se espera encontrar el mínimo y máximo de los indicadores de un coche del parking" do
+        expect(obtener_mat(@parking)).to eq(["ABC123", "DEF456", "GHI789", "JKL012", "1253LBW"])
       end
-
     end
   end
 end
+

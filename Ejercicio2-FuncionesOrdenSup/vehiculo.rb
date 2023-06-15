@@ -15,6 +15,10 @@ class Vehiculo
   # def <=> (other)
   #   @indicadores.max <=> ohter.indicadores.max
   # end
+  def +(other)
+    @precio += other
+  end
+
   def to_s
     "mat: #{@mat}, indicadores: #{@indicadores}"
   end
@@ -32,8 +36,8 @@ end
 # incrementar en un factor al precio vehiculos de un parking
 def incrementar_precio(conjuntoVehiculo, factor)
   # conjuntoVehiculo.collect { |vehiculo| vehiculo.precio + factor }
-  conjuntoVehiculo.collect { |vehiculo| Vehiculo.new(vehiculo.mat, vehiculo.precio + factor, vehiculo.indicadores, vehiculo.combustible) }
-
+  # conjuntoVehiculo.collect { |vehiculo| Vehiculo.new(vehiculo.mat, vehiculo.precio + factor, vehiculo.indicadores, vehiculo.combustible) }
+  conjuntoVehiculo.collect { |vehiculo| vehiculo.precio + factor }
 end
 
 
@@ -52,11 +56,7 @@ RSpec.describe Vehiculo do
       end
 
       it "Se espera que se calcule el incremento de los precios de los vehiculos" do
-        @vehiculo01 = Vehiculo.new("1234KNG", 3000, [4, 3, 2, 1], "gasolina")
-        @vehiculo02 = Vehiculo.new("1234KNG", 2000, [12, 7, 9, 2], "gasolina")
-        @vehiculo03 = Vehiculo.new("1234KNG", 1000, [10, 3, 88, 11], "gasolina")
-        @valorEsperado = [@vehiculo01, @vehiculo02, @vehiculo03]
-        expect(incrementar_precio(@parking, 1)).to eq(@valorEsperado)
+        expect(incrementar_precio(@parking, 1)).to eq([3001, 2001, 1001])
       end
 
     end
